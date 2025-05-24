@@ -1,0 +1,58 @@
+@font-face {
+    font-family: 'Helvetica Neue';
+    src: url('/static/fonts/HelveticaNeue.otf');
+}
+:root {
+    --black: #121212;
+    --spotifyGreen: #1ED760;
+    --lilac: #D2AFFF;
+    --darkGrey: #484848;
+    --lightGrey: #8E8E8E;
+    --white: #fff;
+
+    --bgBlack: #171717;
+    --bgGradient: linear-gradient(0deg, rgba(23, 23, 23, 1) 0%, rgba(18, 18, 18, 1) 50%);   
+
+    /* --barGradient: linear-gradient();
+    --highlightGradient: linear-gradient(); */
+}
+
+body {
+    height: 100vh;
+    background: var(--bgGradient);
+    background-repeat: no-repeat;
+    font-family: 'Helvetica Neue';
+}
+
+button {
+    display: flex;
+    flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
+
+    width: 212px;
+    height: 38px;
+}
+
+main {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    gap: 10%
+}
+
+button, select {
+    border-radius: 20px;
+    border: 1px solid var(--spotifyGreen);
+    background: rgba(217, 217, 217, 0.00);
+    color: var(--white);
+}
+
+header {
+    display: flex;
+}
+
+#headline {
+    color: var(--spotifyGreen)
+}
