@@ -1,0 +1,29 @@
+#musicEnergyPage text{
+    fill: #8E8E8E;
+}
+
+#musicEnergyPage line{ 
+    stroke:#8E8E8E; 
+    stroke-dasharray: 9; 
+}
+
+#musicEnergyPage .radarArea{ 
+    fill: #D2AFFF; 
+    fill-opacity: 0.35; 
+    stroke: #D2AFFF; 
+    stroke-width: 1; 
+}
+
+#musicEnergyPage .label{ 
+    font-size: 12px; 
+    text-anchor: middle; 
+}
+#musicEnergyPage .gridCircle{ 
+    fill: none; stroke: #8E8E8E; 
+    stroke-dasharray: 9; 
+    stroke-dashoffset: 9;
+}
+
+#musicEnergyPage .radarCircles{
+    fill: #D2AFFF;
+}

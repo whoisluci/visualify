@@ -1,6 +1,6 @@
-import { PubSub } from "/pubSub.js";
-import { STATE } from "/index.js";
-import { renderTopItems } from "/topItems/topItems.js";
+import { PubSub } from "../../pubSub.js";
+import { STATE } from "../../index.js";
+import { renderTopItems } from "../../topItems/topItems.js";
 
 PubSub.subscribe({
     event: 'renderLandingPage',

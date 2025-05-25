@@ -1,4 +1,4 @@
-import { STATE } from "/index.js";
+import { STATE } from "./index.js";
 
 export async function handleRedirect() {
     /* Parse to obtain code param */

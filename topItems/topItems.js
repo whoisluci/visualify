@@ -1,6 +1,6 @@
-import { STATE } from "/index.js";
-import { PubSub } from "/pubSub.js";
-import { renderHeadline } from "/headline.js";
+import { STATE } from "../index.js";
+import { PubSub } from "../pubSub.js";
+import { renderHeadline } from "../headline.js";
 import { renderTimeRangeBttn } from "../timeRangeBttn.js";
 import { renderTopGenres } from "../topGenres/topGenres.js";
 import { fetchItems } from "../fetchItems.js";

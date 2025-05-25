@@ -9,6 +9,7 @@
     --darkGrey: #484848;
     --lightGrey: #8E8E8E;
     --white: #fff;
+    --darkestGrey: #1D1D1D;
 
     --bgBlack: #171717;
     --bgGradient: linear-gradient(0deg, rgba(23, 23, 23, 1) 0%, rgba(18, 18, 18, 1) 50%);   
@@ -17,10 +18,14 @@
     --highlightGradient: linear-gradient(); */
 }
 
+*{
+    box-sizing: border-box;
+}
+
 body {
-    height: 100vh;
     background: var(--bgGradient);
     background-repeat: no-repeat;
+    margin: 0;
     font-family: 'Helvetica Neue';
 }
 
@@ -55,4 +60,16 @@ header {
 
 #headline {
     color: var(--spotifyGreen)
+}
+
+.page{
+    height: 100vh;
+}
+
+.page header{
+    height: 10rem
+}
+
+.page main{
+    height: calc(100% - 10rem);
 }
