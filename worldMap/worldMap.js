@@ -61,8 +61,8 @@ export async function renderWorldMap (parentID, timeRange = 'shortTerm') {
                 })
     });
             
-    const countryCount = await fetchData(svg, timeRange);
-    renderCountryData(parentID, countryCount, timeRange);
+    const countryCount = await fetchData(parentID, svg, timeRange);
+    // renderCountryData(parentID, countryCount, timeRange);
 
     timeRngSel.addEventListener('change', (event) => {
         console.log(svg.selectAll('path'));
@@ -74,16 +74,17 @@ export async function renderWorldMap (parentID, timeRange = 'shortTerm') {
 
         const timeRange = event.target.value;
         if (timeRange === 'short_range') {
-            fetchData(svg, 'shortTerm');
+            fetchData(parentID, svg, 'shortTerm');
         } else if (timeRange === 'medium_range') {
-            fetchData(svg, 'mediumTerm');
+            fetchData(parentID, svg, 'mediumTerm');
         } else {
-            fetchData(svg, 'longTerm');
+            fetchData(parentID, svg, 'longTerm');
         }
+        document.querySelectorAll('.countryInfo').forEach(el => el.remove);
     });
 }
 
-async function fetchData (svg, timeRange) {
+async function fetchData (parentID, svg, timeRange) {
     const countryCount = [];
     for (let artist of STATE.userData.artists[`${timeRange}`]) {
         const data = await getArtistCountry(artist.id, artist.name);
@@ -128,7 +129,12 @@ async function fetchData (svg, timeRange) {
             }
         }
     }
+    console.log(STATE.userData.artists[`${timeRange}`]);
+    console.log(countryCount);
+    
+    renderCountryData(parentID, countryCount, timeRange);
 
+    
     return countryCount;
 }
 
@@ -171,7 +177,7 @@ async function fetchWikiData(spotifyID) {
 }
 
 async function fetchMusicBrainz(name) {
-    const mbUrl = `https://musicbrainz.org/ws/2/artist/?query=artist:${name}&fmt=json`;
+    const mbUrl = `https://musicbrainz.org/ws/2/artist/?query=artist:"${name}"&fmt=json`;
     const options = {
         headers: {'User-Agent': 'Visualify/1.0 (lucmov99@gmail.com)'}
     };
@@ -182,10 +188,8 @@ async function fetchMusicBrainz(name) {
         const artists = response.artists || [];
 
         if (artists.length === 0) return null;
-
-        const best = artists[0];
-        console.log(best);
-        return best;
+        const exact = artists.find(a => a.name.toLowerCase() === name.toLowerCase())
+        return exact;
         
     } catch(err) {
         console.error('Error:', err);
@@ -254,7 +258,19 @@ function renderCountryData (parentID, countryCount, timeRange) {
         countryName.id = 'countryName';
 
         const artistImg = document.createElement('img');
-        const artist = STATE.userData.artists[`${timeRange}`].find(a => a.name === country.artists[0]);
+        console.log(country.artists);
+
+        console.log(STATE.userData.artists[`${timeRange}`]);
+        
+        
+        const artist = STATE.userData.artists[`${timeRange}`].find(a => {
+            console.log(a.name);
+            console.log(country.artists[0])
+            
+            if (a.name.toLowerCase() === country.artists[0].toLowerCase()) {
+                return a;
+            };
+    });
         artistImg.src = artist.images[0].url;
         div.append(artistImg);
         artistImg.id = 'artistImg';
