@@ -1,8 +1,8 @@
-import { STATE } from '../index.js';
-import { renderHeadline } from '../headline.js';
-import { renderTimeRangeBttn } from '../timeRangeBttn.js';
+import { STATE } from '../../index.js';
+import { renderHeadline } from '../../components/headline/headline.js';
+import { renderTimeRangeBttn } from '../../components/timeRangeButton/timeRangeBttn.js';
 
-export async function renderWorldMap (parentID, timeRange = 'shortTerm') {
+export async function renderWorldMapPage (parentID, timeRange = 'shortTerm') {
     const parent = document.querySelector(parentID);
 
     const section = document.createElement("section");

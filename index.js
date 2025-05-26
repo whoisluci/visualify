@@ -1,13 +1,12 @@
-import { PubSub } from "./pubSub.js";
-import { renderLandingPage } from "./pages/landingPage/landingPage.js";
-import { renderTopItems } from "./topItems/topItems.js";
-import { handleRedirect } from "./handleRedirect.js"
-import { fetchItems} from "./fetchItems.js";
+import { PubSub } from "./logic/pubSub.js";
+import { renderTopItemsPage } from "./pages/topItemsPage/topItemsPage.js";
+import { handleRedirect } from "./logic/handleRedirect.js"
+import { fetchItems} from "./fetcher/fetchItems.js";
 import { renderSongsDecadePage } from "./pages/songsDecadePage/songsDecadePage.js";
 import { renderLatestSongsPage } from "./pages/latestSongsPage/latestSongsPage.js";
-import { renderTopGenres } from "./topGenres/topGenres.js";
-import { renderArrows } from "./arrows/arrows.js";
-import { renderWorldMap} from "./worldMap/worldMap.js";
+import { renderTopGenresPage } from "./pages/topGenrePage/topGenres.js";
+import { renderArrows } from "./components/arrows/arrows.js";
+import { renderWorldMapPage} from "./pages/worldMapPage/worldMapPage.js";
 
 export const STATE = {
     clientID: 'e8189908e7ce4f7ea8a663354e997ff2',
@@ -101,11 +100,11 @@ const app = {
     async renderApp(){
         await this.getDataAndSet();
         renderArrows("#arrowOverlay", "#wrapper");
-        await renderTopItems('#wrapper');
-        renderTopGenres("#wrapper");
+        await renderTopItemsPage('#wrapper');
+        renderTopGenresPage("#wrapper");
         renderSongsDecadePage("#wrapper",  STATE.getFormattedDecadeData());
         renderLatestSongsPage("#wrapper"); 
-        renderWorldMap("#wrapper");
+        renderWorldMapPage("#wrapper");
     }
 }
 

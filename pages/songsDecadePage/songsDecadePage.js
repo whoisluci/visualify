@@ -1,4 +1,4 @@
-import { renderHeadline } from "../../headline.js";
+import { renderHeadline } from "../../components/headline/headline.js";
 
 export function renderSongsDecadePage(parentSelector, dataset){
     const parent = document.querySelector(parentSelector);

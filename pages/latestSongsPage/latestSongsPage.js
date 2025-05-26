@@ -1,5 +1,5 @@
-import { getLatestItems } from "../../fetchItems.js";
-import { renderHeadline } from "../../headline.js";
+import { getLatestItems } from "../../fetcher/fetchItems.js";
+import { renderHeadline } from "../../components/headline/headline.js";
 
 export async function renderLatestSongsPage(parentSelector){
     const parent = document.querySelector(parentSelector);

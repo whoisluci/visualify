@@ -1,7 +1,7 @@
-import { STATE } from "../index.js";
-import { renderHeadline } from "../headline.js";
-import { renderTimeRangeBttn } from "../timeRangeBttn.js";
-import { fetchItems } from "../fetchItems.js";
+import { STATE } from "../../index.js";
+import { renderHeadline } from "../../components/headline/headline.js";
+import { renderTimeRangeBttn } from "../../components/timeRangeButton/timeRangeBttn.js";
+import { fetchItems } from "../../fetcher/fetchItems.js";
 
 /* Spotify def. timeRange = medium_term */
 export async function renderTopItems (parentID, limit = 50, timeRange = "short_term", offset = 0, type = 'artists') {
