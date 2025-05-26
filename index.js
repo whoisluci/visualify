@@ -10,7 +10,7 @@ import { renderWorldMapPage} from "./pages/worldMapPage/worldMapPage.js";
 
 export const STATE = {
     clientID: 'e8189908e7ce4f7ea8a663354e997ff2',
-    redirectUri: 'http://127.0.0.1:8888/',
+    redirectUri: 'https://maumt.reipino.com/wdv/2025/visualify/',
     userData: {
         artists: {
             shortTerm: null,
