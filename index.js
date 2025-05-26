@@ -35,7 +35,7 @@ export const STATE = {
         const formatted = {};
 
         timeTerms.forEach((timeTerm, i) => {
-            const songData = this.userData.songs[timeTerm];
+            const songData = this.userData.tracks[timeTerm];
             formatted[timeTerm] = [];
 
             for(const decade of decades){
@@ -68,7 +68,7 @@ const app = {
         const spotifyTimeTerms = ["short_term", "medium_term", "long_term"];
         const timeTerms = ["shortTerm", "mediumTerm", "longTerm"];
         const spotifyTypes = ["artists", "tracks"];
-        const types = ["artists", "songs"];
+        const types = ["artists", "tracks"];
 
         for (let typeIndex = 0; typeIndex < spotifyTypes.length; typeIndex++) {
             const spotifyType = spotifyTypes[typeIndex];
@@ -101,10 +101,10 @@ const app = {
     async renderApp(){
         await this.getDataAndSet();
         renderArrows("#arrowOverlay", "#wrapper");
+        await renderTopItems('#wrapper');
+        renderTopGenres("#wrapper");
         renderSongsDecadePage("#wrapper",  STATE.getFormattedDecadeData());
         renderLatestSongsPage("#wrapper"); 
-        renderTopItems('#wrapper');
-        renderTopGenres("#wrapper");
         renderWorldMap("#wrapper");
     }
 }

@@ -17,21 +17,23 @@ export function renderArrows(parentSelector, moveParentSelector){
                         
     moveParent.className = "0";
     const startPos = 0;
-    const maxPos = 700;
+    const maxPos = -400;
 
     parent.querySelector("#leftArrow").addEventListener("click", () => {
         const position = Number(moveParent.className);
-
         if(position !== startPos){
             moveParent.style.transform = `translate(${position + 100}vw, 0)`;
             moveParent.className = position + 100;
+            parent.querySelector("#rightArrow").style.display = "block";
         }
+
     });
 
     parent.querySelector("#rightArrow").addEventListener("click", () => {
         const position = Number(moveParent.className);
 
         if(position !== maxPos){
+            parent.querySelector("#leftArrow").style.display = "block";
             moveParent.style.transform = `translate(${position - 100}vw, 0)`;
             moveParent.className = position - 100;
         }

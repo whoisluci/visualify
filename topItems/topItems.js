@@ -1,12 +1,10 @@
 import { STATE } from "../index.js";
-import { PubSub } from "../pubSub.js";
 import { renderHeadline } from "../headline.js";
 import { renderTimeRangeBttn } from "../timeRangeBttn.js";
-import { renderTopGenres } from "../topGenres/topGenres.js";
 import { fetchItems } from "../fetchItems.js";
 
 /* Spotify def. timeRange = medium_term */
-export async function renderTopItems (parentID, limit = 50, offset = 0, type = 'artists') {
+export async function renderTopItems (parentID, limit = 50, timeRange = "short_term", offset = 0, type = 'artists') {
     let topItemsS = await fetchItems();
     const parent = document.querySelector(parentID);
 
@@ -57,7 +55,7 @@ export async function renderTopItems (parentID, limit = 50, offset = 0, type = '
     const parentsize = d3.select("#topItemsPage main").node().getBoundingClientRect();
 
     const hSvg = parentsize.height;
-    const wSvg = parentsize.height * 2.5;
+    const wSvg = parentsize.height * 2.25;
     const margin = {
         left: 200,
         right: 200,
@@ -172,18 +170,18 @@ export async function renderTopItems (parentID, limit = 50, offset = 0, type = '
             const topItemsM = STATE.userData.tracks.mediumTerm;
             const topItemsL = STATE.userData.tracks.longTerm;
 
-            if (timeRange === 'short_range') {
+            if (timeRange === 'shortTerm') {
                 changeData(svg, topItemsS, xScale, yScale);
-            } else if (timeRange === 'medium_range') {
+            } else if (timeRange === 'mediumTerm') {
                 changeData(svg, topItemsM, xScale, yScale);
             } else {
                 changeData(svg, topItemsL, xScale, yScale);
             }
         } else {
-            if (timeRange === 'short_range') {
+            if (timeRange === 'shortTerm') {
                 changeData(svg, topItemsS, xScale, yScale);
                 console.log(topItemsS); 
-            } else if (timeRange === 'medium_range') {
+            } else if (timeRange === 'mediumTerm') {
                 changeData(svg, topItemsM, xScale, yScale);
             } else {
                 changeData(svg, topItemsL, xScale, yScale);
@@ -211,7 +209,7 @@ async function changeDataType (timeRange, type, xScale, yScale) {
         item.rank = i + 1;
     });
 
-    const svg = d3.select('svg');
+    const svg = d3.select('#topItemsPage svg');
     changeData(svg, topItemsS, xScale, yScale);
 }
 

@@ -89,13 +89,8 @@ export async function renderWorldMap (parentID, timeRange = 'shortTerm') {
             .style('fill', '#383141');
 
         const timeRange = event.target.value;
-        if (timeRange === 'short_range') {
-            fetchData("#worldMapPage main", svg, 'shortTerm');
-        } else if (timeRange === 'medium_range') {
-            fetchData("#worldMapPage main", svg, 'mediumTerm');
-        } else {
-            fetchData("#worldMapPage main", svg, 'longTerm');
-        }
+
+        fetchData("#worldMapPage main", svg, timeRange);
         document.querySelectorAll('.countryInfo').forEach(el => el.remove);
     });
 }
