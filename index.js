@@ -18,7 +18,7 @@ export const STATE = {
             mediumTerm: null,
             longTerm: null
         },
-        songs: {
+        tracks: {
             shortTerm: null,
             mediumTerm: null,
             longTerm: null
