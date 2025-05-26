@@ -155,8 +155,10 @@ export async function renderTopItems (parentID, limit = 50, timeRange = "short_t
     typeSel.addEventListener('change', (event) => {
         const type = event.target.value;
         if (type === 'artists') {
+            headline.textContent = 'TOP ARTISTS';
             changeDataType(timeRange, 'artists', xScale, yScale);
         } else {
+            headline.textContent = 'TOP SONGS';
             changeDataType(timeRange, 'tracks', xScale, yScale);
         }
     });
