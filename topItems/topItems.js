@@ -74,8 +74,7 @@ export async function renderTopItems (parentID, limit = 50, offset = 0, timeRang
     const svg = d3.select('main').append('svg')
                 .attr('height', hSvg)
                 .attr('width', wSvg)
-                .attr('id', `${type}Graph`)
-                .style('border', '1px solid white');
+                .attr('id', `${type}Graph`);
 
     const selectedItems = topItemsS.filter(item => item.rank >= 1 && item.rank <= 10);
     /* ändra till dynamiska värden */
@@ -89,12 +88,12 @@ export async function renderTopItems (parentID, limit = 50, offset = 0, timeRang
     svg.append('g')
         .call(d3.axisBottom(xScale))
         .attr('transform', `translate(0, ${hViz + margin.top})`)
-        // .style('color', '#fff');
+        .style('color', '#fff');
 
     svg.append('g')
         .call(d3.axisLeft(yScale))
         .attr('transform', `translate(${margin.left}, 0)`)
-        // .style('color', '#fff');
+        .style('color', '#fff');
 
     svg.append('g')
         .selectAll('dot')
