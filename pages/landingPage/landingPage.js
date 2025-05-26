@@ -1,6 +1,6 @@
-import { PubSub } from "/pubSub.js";
-import { STATE } from "/index.js";
-import { renderTopItems } from "/topItems/topItems.js";
+import { PubSub } from "../../pubSub.js";
+import { STATE } from "../../index.js";
+import { renderTopItems } from "../../topItems/topItems.js";
 
 PubSub.subscribe({
     event: 'renderLandingPage',
@@ -8,7 +8,7 @@ PubSub.subscribe({
 })
 
 export function renderLandingPage(parentID) {
-    document.querySelector(parentID).innerHTLM =``;
+    document.querySelector(parentID).innerHTML =``;
 
     const main = document.createElement('main');
     document.querySelector(parentID).append(main);
@@ -63,7 +63,7 @@ export function renderLandingPage(parentID) {
         
         /* Authorization request */
         const authUrl = new URL("https://accounts.spotify.com/authorize")
-        let scope = 'user-top-read';
+        let scope = 'user-top-read user-read-recently-played';
         
         window.localStorage.setItem('codeVerifier', codeVerifier);
         

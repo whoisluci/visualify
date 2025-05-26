@@ -1,4 +1,4 @@
-import { STATE } from "/index.js";
+import { STATE } from "./index.js";
 
 export async function handleRedirect() {
     /* Parse to obtain code param */
@@ -32,6 +32,7 @@ export async function handleRedirect() {
             code,
             redirect_uri: STATE.redirectUri,
             code_verifier: codeVerifier,
+            scope:"user-read-recently-played"
            })
        };
 
@@ -46,3 +47,5 @@ export async function handleRedirect() {
         return true;
     }
 }
+
+

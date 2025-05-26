@@ -1,0 +1,18 @@
+#arrowContainer{
+    justify-self: center;
+}
+
+#arrowContainer .arrow{
+    position: fixed;
+    z-index: 10;
+}
+
+#arrowContainer #leftArrow{
+    top: 50%;
+    left: 2%;
+}
+
+#arrowContainer #rightArrow{
+    top:50%;
+    left: 96%;
+}
