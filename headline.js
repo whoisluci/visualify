@@ -3,4 +3,6 @@ export function renderHeadline (parentID, text) {
     headline.id = 'headline';
     document.querySelector(parentID).append(headline);
     headline.textContent = text;
+
+    return headline;
 }
