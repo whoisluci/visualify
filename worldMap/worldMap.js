@@ -44,10 +44,25 @@ export async function renderWorldMap (parentID, timeRange = 'shortTerm') {
                 .each(d => {
                     const name = d.properties.name;
                     // d.properties.count = countryCount.get(id) || 0;
-                  })
+                })
+                .on('click', (event, d) => {
+                    const classDone = event.target.classList.value;
+                    if (classDone === 'done') {
+                        d3.select('main').selectAll('.show').classed('show', false);
+                        console.log(d);
+                        
+                        if (d.properties.name === 'United Kingdom') {
+                            d.properties.name = 'England';
+                        } else if (d.properties.name.includes(' ')) {
+                            d.properties.name = d.properties.name.replaceAll(' ', '_');
+                        }
+                        d3.select("#" + d.properties.name + ".countryInfo").classed('show', true);
+                    }
+                })
     });
-
-    const countryCount = fetchData(svg, timeRange);
+            
+    const countryCount = await fetchData(svg, timeRange);
+    renderCountryData(parentID, countryCount, timeRange);
 
     timeRngSel.addEventListener('change', (event) => {
         console.log(svg.selectAll('path'));
@@ -205,9 +220,57 @@ function updateCountryColor(countryCount, svg, country) {
     }
 
     svg.select(`#${country}`)
+        .classed('done', true)
         .transition()
         .duration(300)
         .style('fill', (d) => {
             return count ? colorScale(count): colorScale(0);
         });
+}
+
+function renderCountryData (parentID, countryCount, timeRange) {
+    for (let country of countryCount) {
+        const div = document.createElement('div');
+        document.querySelector(parentID).append(div);
+
+        let newSpelling;
+        if (country.country === 'United States') {
+            country.country = 'USA';
+        } else if (country.country === 'United Kingdom') {
+            country.country = 'England';
+        } else if (country.country.includes(' ')) {
+            newSpelling = country.country.replaceAll(' ', '_');
+        }
+
+        div.id = (newSpelling === null || newSpelling === undefined) ? country.country : newSpelling;
+        div.classList.add('countryInfo');
+
+        const countryName = document.createElement('h3');
+        if (newSpelling !== null) {
+            countryName.textContent = newSpelling;
+        }
+        countryName.textContent = country.country;
+        div.append(countryName);
+        countryName.id = 'countryName';
+
+        const artistImg = document.createElement('img');
+        const artist = STATE.userData.artists[`${timeRange}`].find(a => a.name === country.artists[0]);
+        artistImg.src = artist.images[0].url;
+        div.append(artistImg);
+        artistImg.id = 'artistImg';
+
+        const textDiv = document.createElement('div');
+        div.append(textDiv);
+        textDiv.id = 'textDiv';
+
+        const catText = document.createElement('h4');
+        catText.textContent = 'Top artist';
+        textDiv.append(catText);
+        catText.id = 'catText';
+
+        const artistName = document.createElement('h3');
+        artistName.textContent = country.artists[0];
+        artistName.id = 'artistName';
+        textDiv.append(artistName); 
+    }
 }
