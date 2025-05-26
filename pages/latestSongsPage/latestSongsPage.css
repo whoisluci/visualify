@@ -1,0 +1,29 @@
+#latestSongsPage text{
+    fill: #8E8E8E;
+}
+
+#latestSongsPage line{ 
+    stroke:#8E8E8E; 
+    stroke-dasharray: 9; 
+}
+
+#latestSongsPage .radarArea{ 
+    fill: #D2AFFF; 
+    fill-opacity: 0.35; 
+    stroke: #D2AFFF; 
+    stroke-width: 1; 
+}
+
+#latestSongsPage .label{ 
+    font-size: 12px; 
+    text-anchor: middle; 
+}
+#latestSongsPage .gridCircle{ 
+    fill: none; stroke: #8E8E8E; 
+    stroke-dasharray: 9; 
+    stroke-dashoffset: 9;
+}
+
+#latestSongsPage .radarCircles{
+    fill: #D2AFFF;
+}

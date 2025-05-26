@@ -5,7 +5,7 @@ export function renderTimeRangeBttn (parentID) {
 
     const optShortTerm = document.createElement('option');
     optShortTerm.classList.add('opt');
-    optShortTerm.value = 'short_term';
+    optShortTerm.value = 'shortTerm'; //short_term
     typeSel.append(optShortTerm);
     optShortTerm.textContent = 'Last 4 weeks';
 
@@ -13,13 +13,13 @@ export function renderTimeRangeBttn (parentID) {
     optMediumTerm.classList.add('opt');
     typeSel.append(optMediumTerm);
     optMediumTerm.textContent = 'Last 6 months';
-    optMediumTerm.value = 'medium_range';
+    optMediumTerm.value = 'mediumTerm'; //medium_range
 
     const optLongTerm = document.createElement('option');
     optLongTerm.classList.add('opt');
     typeSel.append(optLongTerm);
-    optLongTerm.textContent = 'Last 12 months';
-    optLongTerm.value = 'long_range';
+    optLongTerm.textContent = 'Last 12 months'; 
+    optLongTerm.value = 'longTerm'; //long_range
 
     return typeSel;
 }

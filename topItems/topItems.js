@@ -1,27 +1,31 @@
-import { STATE } from "/index.js";
-import { PubSub } from "/pubSub.js";
-import { renderHeadline } from "/headline.js";
+import { STATE } from "../index.js";
+import { PubSub } from "../pubSub.js";
+import { renderHeadline } from "../headline.js";
 import { renderTimeRangeBttn } from "../timeRangeBttn.js";
 import { renderTopGenres } from "../topGenres/topGenres.js";
 import { fetchItems } from "../fetchItems.js";
 
 /* Spotify def. timeRange = medium_term */
-export async function renderTopItems (parentID, limit = 50, offset = 0, timeRange = 'short_term', type = 'artists') {
-    document.querySelector(parentID).innerHTML = ``;
-
+export async function renderTopItems (parentID, limit = 50, offset = 0, type = 'artists') {
     let topItemsS = await fetchItems();
+    const parent = document.querySelector(parentID);
+
     topItemsS.forEach( (item, i) => {
     item.rank = i + 1;
     });
 
     STATE.userData[`${type}`].shortTerm = topItemsS;
 
+    const section = document.createElement("section");
+    section.id = "topItemsPage";
+    section.className = "page";
+    parent.append(section);
+
     const header = document.createElement('header');
-    header.id = 'header';
-    document.querySelector(parentID).append(header);
+    section.append(header);
 
     const text = `Top ${type}`.toUpperCase();
-    const headline = renderHeadline('#header', text);
+    const headline = renderHeadline('#topItemsPage header', text);
 
     const bttnsDiv = document.createElement('div');
     bttnsDiv.id = 'bttnsDiv';
@@ -46,32 +50,25 @@ export async function renderTopItems (parentID, limit = 50, offset = 0, timeRang
     const timeRngSel = renderTimeRangeBttn('#bttnsDiv');
     
     const main = document.createElement('main');
-    document.querySelector(parentID).append(main);
+    section.append(main);
 
     /* ändra sen */
 
-    const hSvg = 800;
-    const wSvg = 1000;
+    const parentsize = d3.select("#topItemsPage main").node().getBoundingClientRect();
+
+    const hSvg = parentsize.height;
+    const wSvg = parentsize.height * 2.5;
     const margin = {
-        left: 60,
-        right: 60,
-        top: 60,
-        bottom: 60
+        left: 200,
+        right: 200,
+        top: 50,
+        bottom: 50
     }
 
     const hViz = hSvg - margin.bottom - margin.top;
     const wViz = wSvg - margin.right - margin.left;
 
-    // - wPadding
-    // - wViz (visualiseringsområde)
-    // - hViz (viusualiseringsområde)
-    // - hPadding
-    // - hPaddingBottom
-    // - wSvg = wViz + wPadding
-    // - hSvg = hViz + hPadding
-    /* lägg till margin och padding */
-
-    const svg = d3.select('main').append('svg')
+    const svg = d3.select('#topItemsPage main').append('svg')
                 .attr('height', hSvg)
                 .attr('width', wSvg)
                 .attr('id', `${type}Graph`);
@@ -105,21 +102,14 @@ export async function renderTopItems (parentID, limit = 50, offset = 0, timeRang
             .attr('r', 5.5)
             .style('fill', 'var(--lilac)');
 
-    const nextBttn = document.createElement('button');
-    nextBttn.textContent = 'next graph';
-    main.append(nextBttn);
-    nextBttn.addEventListener('click', () => {
-        renderTopGenres('main');
-    });
-
     const topItemsM = await fetchItems('medium_term', `${type}`);
     const topItemsL = await fetchItems('long_term', `${type}`);
 
     topItemsM.forEach( (item, i) => {
-    item.rank = i + 1;
+        item.rank = i + 1;
     });
     topItemsL.forEach( (item, i) => {
-    item.rank = i + 1;
+        item.rank = i + 1;
     });
 
 
@@ -128,17 +118,13 @@ export async function renderTopItems (parentID, limit = 50, offset = 0, timeRang
 
     typeSel.addEventListener('change', (event) => {
         const type = event.target.value;
-        console.log(type);
     });
 
     timeRngSel.addEventListener('change', (event) => {
         const timeRange = event.target.value;
-        console.log(timeRange);
-
-        if (timeRange === 'short_range') {
+        if (timeRange === 'shortTerm') {
             changeData(svg, topItemsS, xScale, yScale);
-            console.log(topItemsS); 
-        } else if (timeRange === 'medium_range') {
+        } else if (timeRange === 'mediumTerm') {
             changeData(svg, topItemsM, xScale, yScale);
         } else{
             changeData(svg, topItemsL, xScale, yScale);
@@ -148,9 +134,9 @@ export async function renderTopItems (parentID, limit = 50, offset = 0, timeRang
 
 function changeData (svg, dataset, xScale, yScale) {
     svg.selectAll('circle')
-    .data(dataset)
-    .transition()
-    .duration(700)
-    .attr('cx', (d, i, nodes) => xScale(d.rank))
-    .attr('cy', (d, i, nodes) => yScale(d.popularity));
+        .data(dataset)
+        .transition()
+        .duration(700)
+        .attr('cx', (d, i, nodes) => xScale(d.rank))
+        .attr('cy', (d, i, nodes) => yScale(d.popularity));
 }

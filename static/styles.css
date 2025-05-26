@@ -9,6 +9,7 @@
     --darkGrey: #484848;
     --lightGrey: #8E8E8E;
     --white: #fff;
+    --darkestGrey: #1D1D1D;
 
     --bgBlack: #171717;
     --bgGradient: linear-gradient(0deg, rgba(23, 23, 23, 1) 0%, rgba(18, 18, 18, 1) 50%);   
@@ -17,11 +18,25 @@
     --highlightGradient: linear-gradient(); */
 }
 
+*{
+    box-sizing: border-box;
+}
+
 body {
-    height: 100vh;
     background: var(--bgGradient);
     background-repeat: no-repeat;
+    margin: 0;
     font-family: 'Helvetica Neue';
+    position: relative;
+    overflow: hidden;
+}
+
+body:has(#logotype) main {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10%
 }
 
 button {
@@ -34,17 +49,9 @@ button {
     height: 38px;
 }
 
-main {
-    display: flex;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
-    gap: 10%
-}
-
 button, select {
     border-radius: 20px;
-    border: 1px solid var(--spotifyGreen);
+    border: 2px solid var(--spotifyGreen);
     background: rgba(217, 217, 217, 0.00);
     color: var(--white);
 }
@@ -101,4 +108,58 @@ header {
 
 .countryInfo #artistName {
     margin-top: 3px;
+}
+#wrapper{
+    display: flex;
+    width: 500%;
+    transition: 0.5s all ease-in-out;
+}
+
+.page{
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+
+    background: var(--bgGradient);
+    background-repeat: no-repeat;
+}
+
+.page header{
+    height: 7rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 4rem;
+}
+
+.page header h1{
+    font-size: 2.25rem;
+}
+
+.page header select{
+    padding: 0.3rem 0.825rem;
+    font-size: 1rem;
+    background-color: var(--black);
+    text-align: center;
+}
+
+.page header option{
+    color: var(--white);
+    transition: 300ms color ease-in-out;
+}
+
+.page header option:hover{
+    color: var(--spotifyGreen);
+}
+
+.page main{
+    height: calc(100% - 7rem);
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page #bttnsDiv{
+    display: flex;
+    gap:1rem;
 }
