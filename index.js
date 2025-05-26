@@ -3,9 +3,10 @@ import { renderLandingPage } from "./pages/landingPage/landingPage.js";
 import { renderTopItems } from "./topItems/topItems.js";
 import { handleRedirect } from "./handleRedirect.js"
 import { renderTopGenres } from "./topGenres/topGenres.js";
-import { renderSongsDecadePage } from "./pages/songsDecadePage/songsDecadePage.js";
 import { fetchItems} from "./fetchItems.js";
-import { renderMusicEnergyPage } from "./pages/musicEnergyPage/musicEnergyPage.js";
+import { renderSongsDecadePage } from "./pages/songsDecadePage/songsDecadePage.js";
+import { renderLatestSongsPage } from "./pages/latestSongsPage/latestSongsPage.js";
+import { renderArrows } from "./arrows/arrows.js";
 
 export const STATE = {
     clientID: 'e8189908e7ce4f7ea8a663354e997ff2',
@@ -20,7 +21,7 @@ export const STATE = {
             shortTerm: null,
             mediumTerm: null,
             longTerm: null
-        },
+        }
     },
 
     setStateData(key, timeTerm, data){
@@ -57,28 +58,6 @@ export const STATE = {
                 amount: false,
             })
         });
-        return formatted;
-    },
-
-    getFormattedAlbumData(){
-        const timeTerms = ["shortTerm", "mediumTerm", "longTerm"];
-        const albumTypes = ["album", "single", "compilation"];
-        const formatted = {};
-
-        for(const timeTerm of timeTerms){
-            const songData = this.userData.songs[timeTerm];
-            formatted[timeTerm] = [];
-
-            for(const albumType of albumTypes){
-                const filteredSongs = songData.filter(item => item.album.album_type === albumType);
-                formatted[timeTerm].push({
-                    title: albumType,
-                    value: (filteredSongs.length / songData.length)
-                });
-            }
-
-           /*  formatted[timeTerm].forEach() */
-        }
         return formatted;
     }
 };
@@ -120,8 +99,9 @@ const app = {
 
     async renderApp(){
         await this.getDataAndSet();
-        renderSongsDecadePage("#wrapper",  STATE.getFormattedDecadeData())
-        /* renderMusicEnergyPage("#wrapper", STATE.getFormattedAlbumData()) */
+        renderArrows("#arrowOverlay", "#wrapper");
+        renderSongsDecadePage("#wrapper",  STATE.getFormattedDecadeData());
+        renderLatestSongsPage("#wrapper"); 
         /* renderTopItems('#wrapper'); */
     }
 }

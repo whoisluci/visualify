@@ -1,29 +1,29 @@
-#musicEnergyPage text{
+#latestSongsPage text{
     fill: #8E8E8E;
 }
 
-#musicEnergyPage line{ 
+#latestSongsPage line{ 
     stroke:#8E8E8E; 
     stroke-dasharray: 9; 
 }
 
-#musicEnergyPage .radarArea{ 
+#latestSongsPage .radarArea{ 
     fill: #D2AFFF; 
     fill-opacity: 0.35; 
     stroke: #D2AFFF; 
     stroke-width: 1; 
 }
 
-#musicEnergyPage .label{ 
+#latestSongsPage .label{ 
     font-size: 12px; 
     text-anchor: middle; 
 }
-#musicEnergyPage .gridCircle{ 
+#latestSongsPage .gridCircle{ 
     fill: none; stroke: #8E8E8E; 
     stroke-dasharray: 9; 
     stroke-dashoffset: 9;
 }
 
-#musicEnergyPage .radarCircles{
+#latestSongsPage .radarCircles{
     fill: #D2AFFF;
 }

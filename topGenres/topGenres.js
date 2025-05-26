@@ -1,4 +1,4 @@
-import { STATE } from "/index.js"; 
+import { STATE } from "../index.js"; 
 
 export function renderTopGenres (parentID) {
     document.querySelector(parentID).innerHTML = ``;

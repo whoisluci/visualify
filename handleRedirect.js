@@ -32,6 +32,7 @@ export async function handleRedirect() {
             code,
             redirect_uri: STATE.redirectUri,
             code_verifier: codeVerifier,
+            scope:"user-read-recently-played"
            })
        };
 
@@ -46,3 +47,5 @@ export async function handleRedirect() {
         return true;
     }
 }
+
+

@@ -1,24 +1,97 @@
-export async function renderMusicEnergyPage(parentSelector, dataset){
-    const parent = document.querySelector(parentSelector);
-    parent.innerHTML += `<section id="musicEnergyPage" class="page">
-                            <header>
-                                
-                                  <select>
-                                    <option value="shortTerm">Last 4 weeks</option>
-                                    <option value="mediumTerm">Last 6 Months</option>
-                                    <option value="longTerm">Last 12 Months</option>
-                                </select>
-                            </header>
-                            <main>
-                            </main>
-                        </section>`;
-   
-    const radarChart = new RadarChart("#musicEnergyPage main", dataset["shortTerm"]);
+import { getLatestItems } from "../../fetchItems.js";
+import { renderHeadline } from "../../headline.js";
 
-    parent.querySelector("#musicEnergyPage select").addEventListener("change", (event) => {
-        radarChart.changeData(dataset[event.target.value]);
+export async function renderLatestSongsPage(parentSelector){
+    const parent = document.querySelector(parentSelector);
+
+    const section = document.createElement("section");
+    section.id = "latestSongsPage";
+    section.className = "page";
+    parent.appendChild(section);
+
+    section.innerHTML = `<header>
+                            <div class="titleContainer"></div>
+                            <select>
+                                <option value="1">Last 24 hours</option>
+                                <option value="2">last 48 hours</option>
+                                <option value="7">last week</option>
+                            </select>
+                        </header>
+                        <main></main>`;
+
+    const dataset = await getLatestItems(7);
+    const radarChart = new RadarChart("#latestSongsPage main", formatLatestItems([dataset[0]]));
+    renderHeadline("#latestSongsPage .titleContainer", "Headline headline");
+
+    section.querySelector("#latestSongsPage select").addEventListener("change", (event) => {
+        const result = dataset.slice(0, (Number(event.target.value)));
+        radarChart.changeData(formatLatestItems(result));
     });   
 }
+
+function formatLatestItems(totalDataset){
+    let dataset = [];    
+
+    totalDataset.forEach(item => {
+        dataset = dataset.concat(item);
+    });
+
+    const titles = ["Playlist Listening", "Artist Page Listening", "Distinct albums" /* "Album Listening" */, "Artist repeat rate", "Song repeat rate"];
+    const types = ["playlist", "artist"/*, "album" */];
+    const formatted = [];
+    const correctData = dataset.filter(item => item.context !== null);
+
+
+    types.forEach((type, i) => {
+        const filteredData = dataset.filter(item => item.context?.type === type);
+
+        formatted.push({
+            "title": titles[i],
+            "value": filteredData.length / correctData.length
+        });
+    });
+
+    const uniqueArtists = [];
+    const uniqueSongs = [];
+    const albumNames = [];
+
+    dataset.forEach((item, i) => {
+        const artistName = item.track.artists[0].name;
+        const songName = item.track.name;
+        const albumName = item.track.album.name;
+
+        if(!uniqueArtists.includes(artistName)){
+            uniqueArtists.push(artistName);
+        }
+
+        if(!albumNames.includes(albumName)){
+            albumNames.push(albumName);
+        }
+
+        if(!uniqueSongs.includes(songName)){
+            uniqueSongs.push(songName);
+        }
+    });
+
+    formatted.push({
+        "title": titles[2],
+        "value": uniqueArtists.length / dataset.length
+    });
+
+    formatted.push({
+        "title": titles[3],
+        "value": (dataset.length - uniqueArtists.length) / dataset.length
+    });
+
+    formatted.push({
+        "title": titles[4],
+        "value": (dataset.length - uniqueSongs.length) / dataset.length
+    });
+    
+
+    return formatted;
+}
+
 
 class RadarChart{
     constructor(parentSelector, dataset){
@@ -54,8 +127,7 @@ class RadarChart{
         this.svg = this.parent.append("svg")
             .attr("width", this.wSvg)
             .attr("height", this.hSvg)
-            .classed("radarChart", true)
-
+            .classed("radarChart", true);
 
         this.graphGroup = this.svg.append("g")
             .classed("graphGroup", true)

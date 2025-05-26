@@ -1,24 +1,32 @@
+import { renderHeadline } from "../../headline.js";
+
 export function renderSongsDecadePage(parentSelector, dataset){
     const parent = document.querySelector(parentSelector);
-    parent.innerHTML += `<section id="circularBarPage" class="page">
-                            <header>
-                                <select>
-                                    <option value="shortTerm">Last 4 weeks</option>
-                                    <option value="mediumTerm">Last 6 Months</option>
-                                    <option value="longTerm">Last 12 Months</option>
-                                </select>
-                            </header>
-                            <main>
-                                <div id="songContainer"></div>
-                            </main>
-                        </section>`;
 
-    const circularChart = new CircularBarChart("#circularBarPage main", dataset["shortTerm"]);
-    renderArtistDivs("#circularBarPage #songContainer", dataset["shortTerm"]);
+    const section = document.createElement("section");
+    section.id = "songsDecadePage";
+    section.className = "page";
+    parent.appendChild(section);
 
-    parent.querySelector("#circularBarPage select").addEventListener("change", (event) => {
+    section.innerHTML = `<header>
+                            <div class="titleContainer"></div>
+                            <select>
+                                <option value="shortTerm">Last 4 weeks</option>
+                                <option value="mediumTerm">Last 6 Months</option>
+                                <option value="longTerm">Last 12 Months</option>
+                            </select>
+                        </header>
+                        <main></main>
+                        <div id="songContainer"></div>`;
+
+    renderHeadline("#songsDecadePage .titleContainer", "MUSIC BY DECADE");
+
+    const circularChart = new CircularBarChart("#songsDecadePage main", dataset["shortTerm"]);
+    renderArtistDivs("#songsDecadePage #songContainer", dataset["shortTerm"]);
+
+    section.querySelector("select").addEventListener("change", (event) => {
         circularChart.changeData(dataset[event.target.value]);
-        renderArtistDivs("#circularBarPage #songContainer", dataset[event.target.value]);
+        renderArtistDivs("#songsDecadePage #songContainer", dataset[event.target.value]);
     });    
 }
 
@@ -184,6 +192,8 @@ class CircularBarChart{
     }
 
     bindListeners(){
+        const graphGroup = this.graphGroup;
+
         this.graphGroup.selectAll(".pie").each(function(d, i){
             d3.select(this)
                 .on("mouseenter", () => {

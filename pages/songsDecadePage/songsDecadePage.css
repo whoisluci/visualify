@@ -1,33 +1,33 @@
-#circularBarPage .decadeText{
+#songsDecadePage .decadeText{
     fill:var(--lightGrey);
     font-size: 0.8rem;
     font-family: sans-serif;
     font-weight: 100;
 }
 
-#circularBarPage .none{
+#songsDecadePage .none{
     display: none;
 }
 
-#circularBarPage .pie{
+#songsDecadePage .pie{
     fill: url("#lightPurpleGrad");
 }
 
-#circularBarPage .pieHover{
+#songsDecadePage .pieHover{
     fill: url("#darkPurpleGrad");
 }
 
-#circularBarPage .pieTextHover{
+#songsDecadePage .pieTextHover{
     fill: #9B4CFF;
 }
 
-#circularBarPage h3,
-#circularBarPage h4{
+#songsDecadePage h3,
+#songsDecadePage h4{
     margin: 0;
     font-weight: 100;
 }
 
-#circularBarPage .song{
+#songsDecadePage .song{
     display: grid;
     grid-template-columns: auto auto;
     grid-template-rows: auto auto;
@@ -42,23 +42,23 @@
     transition: 200ms all ease-in-out;
 }
 
-#circularBarPage .song.show{
+#songsDecadePage .song.show{
     opacity: 1;
     z-index: 10;
 }
 
-#circularBarPage .song .decadeTitle{
+#songsDecadePage .song .decadeTitle{
     grid-row: 1;
     grid-column: 1;
 }
 
-#circularBarPage .song img{
+#songsDecadePage .song img{
     width: 7rem;
     grid-row: 2;
     grid-column: 1;
 }
 
-#circularBarPage .song .artistInfo{
+#songsDecadePage .song .artistInfo{
     grid-row: 2;
     grid-column: 2;
 
