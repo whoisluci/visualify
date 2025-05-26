@@ -21,7 +21,7 @@ export async function renderLatestSongsPage(parentSelector){
 
     const dataset = await getLatestItems(7);
     const radarChart = new RadarChart("#latestSongsPage main", formatLatestItems([dataset[0]]));
-    renderHeadline("#latestSongsPage .titleContainer", "Headline headline");
+    renderHeadline("#latestSongsPage .titleContainer", "LISTENING HABITS");
 
     section.querySelector("#latestSongsPage select").addEventListener("change", (event) => {
         const result = dataset.slice(0, (Number(event.target.value)));

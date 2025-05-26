@@ -3,15 +3,31 @@ import { renderHeadline } from '../headline.js';
 import { renderTimeRangeBttn } from '../timeRangeBttn.js';
 
 export async function renderWorldMap (parentID, timeRange = 'shortTerm') {
-    document.querySelector(parentID).innerHTML = ``;
-    const header = document.querySelector('header');
-    header.innerHTML = ``;
+    const parent = document.querySelector(parentID);
 
-    const headline = renderHeadline('header', 'MUSIC MAP');
-    const timeRngSel = renderTimeRangeBttn('header');
+    const section = document.createElement("section");
+    section.id = "worldMapPage";
+    section.className = "page";
+    parent.append(section);
 
-    const hSvg = 1000, wSvg = 1200, margin = 1, hViz = 900, wViz = 900, padding = 50;
-    const svg = d3.select('main')
+    const header = document.createElement('header');
+    section.append(header);
+
+    const main = document.createElement('main');
+    section.append(main);
+
+    const headline = renderHeadline('#worldMapPage header', "MUSIC MAP");
+    const timeRngSel = renderTimeRangeBttn('#worldMapPage header');
+
+    const parentsize = d3.select("#worldMapPage main").node().getBoundingClientRect();
+    const hSvg = parentsize.height;
+    const wSvg = parentsize.height * 2;
+
+    const padding = 50;
+    const hViz = hSvg;
+    const wViz = wSvg - padding * 2;
+    
+    const svg = d3.select('#worldMapPage main')
         .append('svg')
         .attr('height', hSvg)
         .attr('width', wSvg);
@@ -48,8 +64,8 @@ export async function renderWorldMap (parentID, timeRange = 'shortTerm') {
                 .on('click', (event, d) => {
                     const classDone = event.target.classList.value;
                     if (classDone === 'done') {
-                        d3.select('main').selectAll('.show').classed('show', false);
-                        console.log(d);
+                        d3.select('#worldMapPage main').selectAll('.show').classed('show', false);
+
                         
                         if (d.properties.name === 'United Kingdom') {
                             d.properties.name = 'England';
@@ -61,7 +77,7 @@ export async function renderWorldMap (parentID, timeRange = 'shortTerm') {
                 })
     });
             
-    const countryCount = await fetchData(parentID, svg, timeRange);
+    const countryCount = await fetchData("#worldMapPage main" , svg, timeRange);
     // renderCountryData(parentID, countryCount, timeRange);
 
     timeRngSel.addEventListener('change', (event) => {
@@ -74,11 +90,11 @@ export async function renderWorldMap (parentID, timeRange = 'shortTerm') {
 
         const timeRange = event.target.value;
         if (timeRange === 'short_range') {
-            fetchData(parentID, svg, 'shortTerm');
+            fetchData("#worldMapPage main", svg, 'shortTerm');
         } else if (timeRange === 'medium_range') {
-            fetchData(parentID, svg, 'mediumTerm');
+            fetchData("#worldMapPage main", svg, 'mediumTerm');
         } else {
-            fetchData(parentID, svg, 'longTerm');
+            fetchData("#worldMapPage main", svg, 'longTerm');
         }
         document.querySelectorAll('.countryInfo').forEach(el => el.remove);
     });
@@ -134,7 +150,6 @@ async function fetchData (parentID, svg, timeRange) {
     
     renderCountryData(parentID, countryCount, timeRange);
 
-    
     return countryCount;
 }
 

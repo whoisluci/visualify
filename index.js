@@ -7,6 +7,7 @@ import { renderSongsDecadePage } from "./pages/songsDecadePage/songsDecadePage.j
 import { renderLatestSongsPage } from "./pages/latestSongsPage/latestSongsPage.js";
 import { renderTopGenres } from "./topGenres/topGenres.js";
 import { renderArrows } from "./arrows/arrows.js";
+import { renderWorldMap} from "./worldMap/worldMap.js";
 
 export const STATE = {
     clientID: 'e8189908e7ce4f7ea8a663354e997ff2',
@@ -104,6 +105,7 @@ const app = {
         renderLatestSongsPage("#wrapper"); 
         renderTopItems('#wrapper');
         renderTopGenres("#wrapper");
+        renderWorldMap("#wrapper");
     }
 }
 
