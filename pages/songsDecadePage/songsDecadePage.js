@@ -52,13 +52,13 @@ class CircularBarChart{
     constructor(parentSelector, dataset){
         this.parent = d3.select(parentSelector);
         this.dataset = dataset;
-        const boundingRect = this.parent.node().getBoundingClientRect();
+        const parentsize = this.parent.node().getBoundingClientRect();
 
         this.margin = {
-            top: 40,
-            right: 10,
-            bottom: 40,     
-            left: 10
+            top: 20,
+            right: 80,
+            bottom: 20,     
+            left: 80
         }
         this.colors = {
             toLilac: "#F0E5FD",
@@ -66,14 +66,14 @@ class CircularBarChart{
             toDarkerLilac: "#9745FF"
         }
 
-        this.wSvg = boundingRect.height;
-        this.hSvg = boundingRect.height; 
+        this.wSvg = parentsize.height;
+        this.hSvg = parentsize.height; 
         this.hViz = this.hSvg - this.margin.bottom - this.margin.top;
         this.wViz = this.wSvg - this.margin.left - this.margin.right;
 
         this.rotation = ((1/dataset.length) * 360)/2;
         this.innerRadius = 80;
-        this.outerRadius = d3.min([this.hViz, this.wViz]) / 2;
+        this.outerRadius = d3.min([this.hViz, this.wViz]) / 1.7;
 
         this.init();
     }

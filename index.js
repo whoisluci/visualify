@@ -2,10 +2,10 @@ import { PubSub } from "./pubSub.js";
 import { renderLandingPage } from "./pages/landingPage/landingPage.js";
 import { renderTopItems } from "./topItems/topItems.js";
 import { handleRedirect } from "./handleRedirect.js"
-import { renderTopGenres } from "./topGenres/topGenres.js";
 import { fetchItems} from "./fetchItems.js";
 import { renderSongsDecadePage } from "./pages/songsDecadePage/songsDecadePage.js";
 import { renderLatestSongsPage } from "./pages/latestSongsPage/latestSongsPage.js";
+import { renderTopGenres } from "./topGenres/topGenres.js";
 import { renderArrows } from "./arrows/arrows.js";
 
 export const STATE = {
@@ -102,7 +102,8 @@ const app = {
         renderArrows("#arrowOverlay", "#wrapper");
         renderSongsDecadePage("#wrapper",  STATE.getFormattedDecadeData());
         renderLatestSongsPage("#wrapper"); 
-        /* renderTopItems('#wrapper'); */
+        renderTopItems('#wrapper');
+        renderTopGenres("#wrapper");
     }
 }
 

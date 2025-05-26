@@ -3,6 +3,8 @@ export async function fetchItems (timeRange = 'short_term', type = 'artists') {
     const token = localStorage.getItem('accessToken');
     let topItems;
 
+    console.log(timeRange)
+
     const options = {
         method: 'GET',
         headers: {

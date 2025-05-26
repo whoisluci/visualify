@@ -39,15 +39,23 @@ function formatLatestItems(totalDataset){
     const titles = ["Playlist Listening", "Artist Page Listening", "Distinct albums" /* "Album Listening" */, "Artist repeat rate", "Song repeat rate"];
     const types = ["playlist", "artist"/*, "album" */];
     const formatted = [];
-    const correctData = dataset.filter(item => item.context !== null);
-
 
     types.forEach((type, i) => {
-        const filteredData = dataset.filter(item => item.context?.type === type);
+        const filteredData = dataset.filter(item => {
+            if(item.context && item.context.type === type){
+                return true
+            }
+            else if(item.context === null && type === "playlist"){
+                return true;
+            }
+            else{
+                return false;
+            }
+        });
 
         formatted.push({
             "title": titles[i],
-            "value": filteredData.length / correctData.length
+            "value": filteredData.length / dataset.length
         });
     });
 
@@ -87,7 +95,6 @@ function formatLatestItems(totalDataset){
         "title": titles[4],
         "value": (dataset.length - uniqueSongs.length) / dataset.length
     });
-    
 
     return formatted;
 }
@@ -95,6 +102,8 @@ function formatLatestItems(totalDataset){
 
 class RadarChart{
     constructor(parentSelector, dataset){
+        console.log(dataset)
+
         this.parent = d3.select(parentSelector);
         this.dataset = dataset;
         const boundingRect = this.parent.node().getBoundingClientRect();

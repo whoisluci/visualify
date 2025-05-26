@@ -31,6 +31,14 @@ body {
     overflow: hidden;
 }
 
+body:has(#logotype) main {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10%
+}
+
 button {
     display: flex;
     flex-shrink: 0;
@@ -39,14 +47,6 @@ button {
 
     width: 212px;
     height: 38px;
-}
-
-main {
-    display: flex;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
-    gap: 10%
 }
 
 button, select {
@@ -72,7 +72,7 @@ header {
 
 .page{
     height: 100vh;
-    min-width: 100vw;
+    width: 100vw;
     position: relative;
 
     background: var(--bgGradient);
@@ -109,4 +109,12 @@ header {
 
 .page main{
     height: calc(100% - 10rem);
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page #bttnsDiv{
+    display: flex;
+    gap:1rem;
 }
