@@ -1,7 +1,7 @@
 export function renderArrows(parentSelector, moveParentSelector){
     const parent = document.querySelector(parentSelector);
     const moveParent = document.querySelector(moveParentSelector);
-    const imgDir = "../static/icons/";
+    const imgDir = "./static/icons/";
 
     const arrowContainer = document.createElement("div");
     arrowContainer.id = "arrowContainer";

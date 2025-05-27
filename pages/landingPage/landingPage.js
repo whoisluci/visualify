@@ -14,7 +14,7 @@ export function renderLandingPage(parentID) {
     
     const logotype = document.createElement('img');
     logotype.id = 'logotype';
-    logotype.src = '../static/logotype.svg';
+    logotype.src = './static/logotype.svg';
     main.append(logotype);
 
     const ctaDiv = document.createElement('div');

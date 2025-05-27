@@ -7,6 +7,7 @@ import { renderLatestSongsPage } from "./pages/latestSongsPage/latestSongsPage.j
 import { renderTopGenresPage } from "./pages/topGenrePage/topGenres.js";
 import { renderArrows } from "./components/arrows/arrows.js";
 import { renderWorldMapPage} from "./pages/worldMapPage/worldMapPage.js";
+import { renderLandingPage } from "./pages/landingPage/landingPage.js";
 
 export const STATE = {
     clientID: 'e8189908e7ce4f7ea8a663354e997ff2',
