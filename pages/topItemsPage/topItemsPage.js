@@ -41,7 +41,7 @@ export async function renderTopItemsPage (parentID, limit = 50, timeRange = "sho
 
     const optSongs = document.createElement('option');
     optSongs.classList.add('opt');
-    optSongs.value = 'songs';
+    optSongs.value = 'tracks';
     optSongs.text = 'Songs';
     typeSel.append(optSongs);
 
@@ -50,12 +50,9 @@ export async function renderTopItemsPage (parentID, limit = 50, timeRange = "sho
     const main = document.createElement('main');
     section.append(main);
 
-    /* ändra sen */
-
     const parentsize = d3.select("#topItemsPage main").node().getBoundingClientRect();
-
     const hSvg = parentsize.height;
-    const wSvg = parentsize.height * 2.25;
+    const wSvg = parentsize.height * 2;
     const margin = {
         left: 200,
         right: 200,
@@ -165,8 +162,8 @@ export async function renderTopItemsPage (parentID, limit = 50, timeRange = "sho
 
     timeRngSel.addEventListener('change', (event) => {
         const timeRange = event.target.value;
-        const typeVal = document.querySelector('#timeRngSel').value;
-        
+        const typeVal = document.querySelector('#typeSel').value;
+
         if (typeVal === 'tracks') {
             const topItemsS = STATE.userData.tracks.shortTerm;
             const topItemsM = STATE.userData.tracks.mediumTerm;

@@ -66,3 +66,11 @@
     flex-direction: column;
     gap:0.5rem;
 }
+
+#songContainer > * > img {
+    border-radius: 3px;
+}
+
+.pie {
+    cursor: pointer;
+}

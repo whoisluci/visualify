@@ -43,3 +43,7 @@
 .countryInfo #artistName {
     margin-top: 3px;
 }
+
+.done {
+    cursor: pointer;
+}

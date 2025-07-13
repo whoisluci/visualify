@@ -21,7 +21,7 @@ export function renderTopGenresPage (parentID) {
 
     const parentsize = d3.select("#topGenrePage main").node().getBoundingClientRect();
 
-    const hSvg = parentsize.height * 1.10;
+    const hSvg = parentsize.height * 1;
     const wSvg = parentsize.width;
     const padding = 10;
     const hViz = hSvg - padding * 2; 
@@ -48,8 +48,11 @@ export function renderTopGenresPage (parentID) {
 
     const hierarchy = d3.hierarchy({children: topGenres})
         .sum(g => g.count);
-
+        
     const root = pack(hierarchy);
+    console.log(root.descendants());
+    
+    console.log(root.descendants().slice(1));
     
     const svg = d3.select('#topGenrePage main').append('svg')
         .attr('width', wSvg)
@@ -113,12 +116,12 @@ export function renderTopGenresPage (parentID) {
 
     timeRngSel.addEventListener('change', (event) => {
         const timeRange = event.target.value;
-        changeData(svg, timeRange, wViz, hViz, padding, colors)
+        changeData(svg, timeRange, wViz, hViz, padding, colors, zoom, wSvg, hSvg)
     });
 }
 
 
-function changeData(svg, timeRange, wViz, hViz, padding, colors) {
+function changeData(svg, timeRange, wViz, hViz, padding, colors, zoom, wSvg, hSvg) {
     const newDataset = formatGenreData(STATE.userData['artists'][timeRange]);
 
     const color = d3.scaleSequential()
@@ -170,9 +173,24 @@ function changeData(svg, timeRange, wViz, hViz, padding, colors) {
         .text(d => d.data.genre)
         .style('font-size', d => Math.min(2 * d.r / d.data.genre.length, d.r / 2) + "px");
 
+    bubbleEnter.on('click', (event, d) => {
+        const scale = 5; 
+        const x = d.x;
+        const y = d.y;
+        
+        svg.transition()
+            .duration(750)
+            .call(
+            zoom.transform,
+            d3.zoomIdentity
+                .translate(wSvg / 2, hSvg / 2)  
+                .scale(scale)                  
+                .translate(-x, -y)                 
+            );
+    });
+    
     nodes.exit().remove();
 }
-
 
 function formatGenreData(dataset){
     const allGenres = [];

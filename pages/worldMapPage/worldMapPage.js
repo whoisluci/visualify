@@ -57,15 +57,10 @@ export async function renderWorldMapPage (parentID, timeRange = 'shortTerm') {
                 })
                 .style('fill', '#383141')
                 .style('stroke', 'var(--black)')
-                .each(d => {
-                    const name = d.properties.name;
-                    // d.properties.count = countryCount.get(id) || 0;
-                })
                 .on('click', (event, d) => {
                     const classDone = event.target.classList.value;
                     if (classDone === 'done') {
                         d3.select('#worldMapPage main').selectAll('.show').classed('show', false);
-
                         
                         if (d.properties.name === 'United Kingdom') {
                             d.properties.name = 'England';

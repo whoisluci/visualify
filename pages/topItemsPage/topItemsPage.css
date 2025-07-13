@@ -13,7 +13,7 @@
 }
 
 
-circle:hover {
+#artistsGraph > g:nth-of-type(3):hover {
     cursor: pointer;
 }
 

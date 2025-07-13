@@ -66,8 +66,8 @@ class CircularBarChart{
             toDarkerLilac: "#9745FF"
         }
 
-        this.wSvg = parentsize.height;
-        this.hSvg = parentsize.height; 
+        this.wSvg = parentsize.height * 0.9;
+        this.hSvg = parentsize.height * 0.9; 
         this.hViz = this.hSvg - this.margin.bottom - this.margin.top;
         this.wViz = this.wSvg - this.margin.left - this.margin.right;
 
@@ -254,5 +254,5 @@ class CircularBarChart{
                     return arcWithRadius(d);  //generates a arc with the new outerRadius
                 };
             });
-        }
+    }
 }

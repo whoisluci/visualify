@@ -36,7 +36,7 @@ function formatLatestItems(totalDataset){
         dataset = dataset.concat(item);
     });
 
-    const titles = ["Playlist Listening", "Artist Page Listening", "Distinct albums" /* "Album Listening" */, "Artist repeat rate", "Song repeat rate"];
+    const titles = ["Playlist Listening", "Artist Page Listening", "Distinct Albums" /* "Album Listening" */, "Artist Repeat Rate", "Song Repeat Rate"];
     const types = ["playlist", "artist"/*, "album" */];
     const formatted = [];
 
@@ -120,7 +120,7 @@ class RadarChart{
             lilac: "#D2AFFF"
         }
 
-        this.wSvg =  750/* boundingRect.width * 0.5 */;   
+        this.wSvg =  boundingRect.height * 1.3;   
         this.hSvg = boundingRect.height; 
         this.hViz = this.hSvg - this.margin.bottom - this.margin.top;
         this.wViz = this.wSvg - this.margin.left - this.margin.right;
